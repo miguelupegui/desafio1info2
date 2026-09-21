@@ -1,10 +1,13 @@
 #ifndef DETECCION_H
 #define DETECCION_H
 
-void detectarHorizontal(unsigned char* tablero, int F, int C);
+int detectarHorizontal(unsigned char* tablero, unsigned char* marcas,
+                       int F, int C, int desplazamiento, int despMarcas);
 
-void detectarVertical(unsigned char* tablero, int F, int C);
+int detectarVertical(unsigned char* tablero, unsigned char* marcas,
+                     int F, int C, int desplazamiento, int despMarcas);
 
-void eliminarCombo(unsigned char* tablero, int F, int C);
+int eliminarCombo(unsigned char* tablero, unsigned char* marcas,
+                  int F, int C, int desplazamiento, int despMarcas);
 
 #endif

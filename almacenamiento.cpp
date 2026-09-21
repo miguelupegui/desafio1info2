@@ -5,6 +5,13 @@ int calcularbytes(int F, int C){
     int totalbits = 3 * F * C;
     return (totalbits + 7) / 8;
 }
+
+//cantidad de bits que sobran y que el desafio pide dejar agrupados a la izquierda
+//de toda la trama, es decir antes de la primera ficha
+int calcularDesplazamiento(int F, int C, int bytesreservados){
+    return bytesreservados * 8 - 3 * F * C;
+}
+
 //crear el tablero
 void creartablero(unsigned char*& tablero, int F, int C, int& bytesreservados){
     bytesreservados = calcularbytes(F, C);
@@ -14,19 +21,21 @@ void creartablero(unsigned char*& tablero, int F, int C, int& bytesreservados){
         tablero[i] = 0;
     }
 }
+
 //funcion de saber donde empieza la ficha exactamente
-void fichacomienza(int fila, int columna, int C, int& byteindex, int& byteoffset){
+//los bits sobrantes van al comienzo, por eso se suma el desplazamiento
+void fichacomienza(int fila, int columna, int C, int desplazamiento, int& byteindex, int& byteoffset){
     int indice = fila * C + columna;
-    int bitinicial = indice * 3;
+    int bitinicial = desplazamiento + indice * 3;
     byteindex = bitinicial / 8;
     byteoffset = bitinicial % 8;
 }
 
 //funcion de tomar la ficha para analizar el caso de una ficha en dos bytes
-unsigned char tomarFicha(unsigned char* tablero, int fila, int columna, int C){
+unsigned char tomarFicha(unsigned char* tablero, int fila, int columna, int C, int desplazamiento){
     int byteindex;
     int byteoffset;
-    fichacomienza(fila, columna, C, byteindex, byteoffset);
+    fichacomienza(fila, columna, C, desplazamiento, byteindex, byteoffset);
 
     unsigned char valor;
 
@@ -49,10 +58,10 @@ unsigned char tomarFicha(unsigned char* tablero, int fila, int columna, int C){
 }
 //declaracion de la funcion modificarficha()
 //propósito: modifica el valor de una ficha especifica, sin tocar otras fichas
-void modificarficha(unsigned char* tablero, int fila, int columna, int C, unsigned char valor){
+void modificarficha(unsigned char* tablero, int fila, int columna, int C, int desplazamiento, unsigned char valor){
     int byteindex;
     int byteoffset;
-    fichacomienza(fila, columna, C, byteindex, byteoffset);
+    fichacomienza(fila, columna, C, desplazamiento, byteindex, byteoffset);
 
     if (byteoffset <= 5) {
         // Caso 1: la ficha cabe completa en un solo byte

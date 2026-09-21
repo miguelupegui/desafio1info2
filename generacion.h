@@ -3,6 +3,6 @@
 
 unsigned char generarFicha();
 
-void llenarTablero(unsigned char* tablero, int filas, int columnas);
+void llenarTablero(unsigned char* tablero, int filas, int columnas, int desplazamiento);
 
 #endif

@@ -9,11 +9,15 @@ SOURCES += \
         generacion.cpp \
         juego.cpp \
         main.cpp \
-        reorganizarTablero.cpp
+        modificacion.cpp \
+        reorganizarTablero.cpp \
+        visualizacion.cpp
 
 HEADERS += \
     almacenamiento.h \
     deteccion.h \
     generacion.h \
     juego.h \
-    reorganizarTablero.h
+    modificacion.h \
+    reorganizarTablero.h \
+    visualizacion.h
